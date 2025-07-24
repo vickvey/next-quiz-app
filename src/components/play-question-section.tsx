@@ -1,5 +1,8 @@
+"use client";
+
 import { Question } from "@/interfaces";
 import { useState, useEffect } from "react";
+import Timer from "./timer";
 
 export default function PlayQuestionSection({
   question,
@@ -10,10 +13,21 @@ export default function PlayQuestionSection({
   setScore: React.Dispatch<React.SetStateAction<number>>;
   setCurrentQuestionIndex: React.Dispatch<React.SetStateAction<number>>;
 }) {
-  const [selectedOption, setSelectedOption] = useState<number>(-1);
+  const [isTimerComplete, setIsTimerComplete] = useState<boolean>(false);
+  const [selectedOption, setSelectedOption] = useState<number>(0);
 
   useEffect(() => {
-    setSelectedOption(-1);
+    if (isTimerComplete) {
+      if (selectedOption === question.correct) {
+        setScore((prev) => prev + 1);
+      }
+      setCurrentQuestionIndex((prev) => prev + 1);
+    }
+  }, [isTimerComplete]);
+
+  useEffect(() => {
+    setSelectedOption(0); // Reset selection when question changes
+    setIsTimerComplete(false); // Reset timer flag
   }, [question]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -28,6 +42,12 @@ export default function PlayQuestionSection({
   return (
     <section>
       <form onSubmit={handleSubmit} className="space-y-4">
+        <Timer
+          key={question.id}
+          totalSeconds={5}
+          setIsTimerComplete={setIsTimerComplete}
+          isStopped={false}
+        />
         <h1 className="text-2xl font-bold">
           {question.id}. {question.statement}
         </h1>
@@ -50,7 +70,7 @@ export default function PlayQuestionSection({
           <button
             type="submit"
             className="py-2.5 px-7 bg-blue-500 rounded-xl hover:cursor-pointer hover:bg-blue-500/80 transition-colors duration-200 disabled:opacity-50"
-            disabled={selectedOption === -1}
+            disabled={isTimerComplete}
           >
             Submit
           </button>
