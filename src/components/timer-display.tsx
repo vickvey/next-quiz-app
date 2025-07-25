@@ -1,66 +1,35 @@
-import { useTimer } from "@/hooks";
+import { useFormattedTime, useTimer } from "@/hooks";
 import { SetStateAction } from "react";
 
 export default function TimerDisplay({
   totalSeconds,
   setIsTimerComplete,
-  enableControls = false,
+  className = "",
 }: {
   totalSeconds: number;
   setIsTimerComplete: React.Dispatch<SetStateAction<boolean>>;
-  enableControls?: boolean;
+  className?: string;
 }) {
-  const {
-    secondsLeft,
-    isCompleted,
-    isRunning,
-    start,
-    pause,
-    resume,
-    reset,
-    restart,
-  } = useTimer(totalSeconds, () => {
-    setIsTimerComplete(true);
+  const { secondsLeft } = useTimer({
+    totalSeconds,
+    onComplete: () => {
+      setIsTimerComplete(true);
+    },
   });
+  const { formattedHours, formattedMinutes, formattedSeconds } =
+    useFormattedTime(secondsLeft);
 
-  if (!enableControls) {
-    return <p>{secondsLeft}</p>;
-  }
+  const tailwindStyles = `py-2 max-w-fit px-5 rounded-lg transition-colors duration-800 ${
+    Number(formattedSeconds) < 10 ? "bg-red-900" : "bg-green-800"
+  }`;
 
   return (
-    <div className="bg-gray-800 text-white font-medium text-2xl py-24 px-32">
-      {!isCompleted && <p>{secondsLeft} time remaining !!!</p>}
-      {isCompleted && <p>Time's Up!!</p>}
-
-      <div className="flex flex-col space-y-8">
-        <h1>Control Buttons</h1>
-        <button
-          onClick={start}
-          className="bg-blue-500 rounded-lg py-2 px-7 hover:cursor-pointer disabled:opacity-50"
-          disabled={isRunning}
-        >
-          start
-        </button>
-        <button
-          onClick={isRunning ? pause : resume}
-          className="bg-blue-500 rounded-lg py-2 px-7 hover:cursor-pointer disabled:opacity-50"
-          disabled={isCompleted}
-        >
-          {isRunning ? "pause" : "resume"}
-        </button>
-        <button
-          onClick={reset}
-          className="bg-blue-500 rounded-lg py-2 px-7 hover:cursor-pointer disabled:opacity-50"
-        >
-          reset
-        </button>
-        <button
-          onClick={restart}
-          className="bg-blue-500 rounded-lg py-2 px-7 hover:cursor-pointer disabled:opacity-50"
-        >
-          restart
-        </button>
-      </div>
-    </div>
+    <p className={className ? className + tailwindStyles : tailwindStyles}>
+      {formattedHours}
+      <span className="mx-1 font-extrabold">:</span>
+      {formattedMinutes}
+      <span className="mx-1 font-extrabold">:</span>
+      {formattedSeconds}
+    </p>
   );
 }

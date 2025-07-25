@@ -14,9 +14,9 @@ export default function TimerPage() {
       <div>
         {!isTimerComplete ? (
           <TimerDisplay
-            key={1}
-            totalSeconds={5}
+            totalSeconds={15}
             setIsTimerComplete={setIsTimerComplete}
+            className=" py-2 max-w-fit px-5 rounded-lg"
           />
         ) : (
           <p>Time's Up!!</p>

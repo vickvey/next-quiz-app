@@ -1,2 +1,4 @@
 export { useTimer } from "./useTimer";
-export { useCounter } from "./useCounter";
+export { useQuiz } from "./useQuiz";
+export { useQuizData } from "./useQuizData";
+export { useFormattedTime } from "./useFormattedTime";
