@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 
-const useTimer = (totalSeconds: number = 10, onComplete: () => void) => {
+export const useTimer = ({
+  totalSeconds = 10,
+  onComplete,
+}: {
+  totalSeconds: number;
+  onComplete?: () => void;
+}) => {
   const [secondsLeft, setSecondsLeft] = useState<number>(totalSeconds);
   const [isRunning, setIsRunning] = useState<boolean>(true);
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
@@ -20,6 +26,7 @@ const useTimer = (totalSeconds: number = 10, onComplete: () => void) => {
   };
   const reset = () => {
     setSecondsLeft(totalSeconds);
+    setIsRunning(false);
     setIsCompleted(false);
   };
   const restart = () => {
@@ -30,7 +37,7 @@ const useTimer = (totalSeconds: number = 10, onComplete: () => void) => {
   useEffect(() => {
     if (secondsLeft === 0 && !isCompleted) {
       setIsCompleted(true);
-      onComplete();
+      if (onComplete) onComplete();
       setIsRunning(false);
       return;
     }

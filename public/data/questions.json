@@ -4,13 +4,13 @@
       "id": "1",
       "statement": "What is the capital of India?",
       "options": ["New Delhi", "Mumbai", "Indore", "Chennai"],
-      "correct": "0"
+      "correct": 0
     },
     {
       "id": "2",
       "statement": "What is the meaning of life?",
       "options": ["-1", "0", "21", "42"],
-      "correct": "0"
+      "correct": 3
     }
   ]
 }

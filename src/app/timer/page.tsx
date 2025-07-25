@@ -1,14 +1,10 @@
 "use client";
 
-import { useTimer } from "@/hooks";
+import TimerDisplay from "@/components/timer-display";
 import { useState } from "react";
 
 export default function TimerPage() {
-  const [isTimerCompleted, setIsCompleted] = useState<boolean>(false);
-  const [secondsLeft] = useTimer(5, () => {
-    console.log(`Time's up!`);
-    setIsCompleted(true);
-  });
+  const [isTimerComplete, setIsTimerComplete] = useState(false);
 
   return (
     <section className="my-28 mx-36 text-2xl">
@@ -16,8 +12,15 @@ export default function TimerPage() {
         <h1>Timer Demo Page</h1>
       </div>
       <div>
-        {!isTimerCompleted && <p>{secondsLeft} remaining</p>}
-        {isTimerCompleted && <p>Time's up!!!!</p>}
+        {!isTimerComplete ? (
+          <TimerDisplay
+            key={1}
+            totalSeconds={5}
+            setIsTimerComplete={setIsTimerComplete}
+          />
+        ) : (
+          <p>Time's Up!!</p>
+        )}
       </div>
     </section>
   );

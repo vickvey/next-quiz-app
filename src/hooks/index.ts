@@ -1,2 +1,2 @@
-export { useTimer } from "./useTimerEasy";
+export { useTimer } from "./useTimer";
 export { useCounter } from "./useCounter";
