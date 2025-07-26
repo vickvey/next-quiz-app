@@ -11,6 +11,64 @@
       "statement": "What is the meaning of life?",
       "options": ["-1", "0", "21", "42"],
       "correct": 3
+    },
+    {
+      "id": "3",
+      "statement": "Which planet is known as the Red Planet?",
+      "options": ["Earth", "Venus", "Mars", "Jupiter"],
+      "correct": 2
+    },
+    {
+      "id": "4",
+      "statement": "Who wrote the play 'Romeo and Juliet'?",
+      "options": [
+        "Charles Dickens",
+        "William Shakespeare",
+        "Mark Twain",
+        "Oscar Wilde"
+      ],
+      "correct": 1
+    },
+    {
+      "id": "5",
+      "statement": "Which element has the chemical symbol 'O'?",
+      "options": ["Gold", "Oxygen", "Osmium", "Opal"],
+      "correct": 1
+    },
+    {
+      "id": "6",
+      "statement": "How many continents are there on Earth?",
+      "options": ["5", "6", "7", "8"],
+      "correct": 2
+    },
+    {
+      "id": "7",
+      "statement": "What is the largest mammal in the world?",
+      "options": ["African Elephant", "Blue Whale", "Giraffe", "Polar Bear"],
+      "correct": 1
+    },
+    {
+      "id": "8",
+      "statement": "Which country hosted the 2020 Summer Olympics (held in 2021)?",
+      "options": ["China", "Japan", "USA", "Brazil"],
+      "correct": 1
+    },
+    {
+      "id": "9",
+      "statement": "What is the square root of 144?",
+      "options": ["11", "12", "13", "14"],
+      "correct": 1
+    },
+    {
+      "id": "10",
+      "statement": "Who painted the Mona Lisa?",
+      "options": [
+        "Vincent Van Gogh",
+        "Pablo Picasso",
+        "Leonardo da Vinci",
+        "Michelangelo"
+      ],
+      "correct": 2
     }
   ]
 }

@@ -1,30 +1,32 @@
 import { useFormattedTime, useTimer } from "@/hooks";
-import { SetStateAction } from "react";
 
 export default function TimerDisplay({
   totalSeconds,
-  setIsTimerComplete,
+  enableRestartAfterComplete = false,
+  onTimerComplete,
   className = "",
 }: {
   totalSeconds: number;
-  setIsTimerComplete: React.Dispatch<SetStateAction<boolean>>;
+  enableRestartAfterComplete: boolean;
+  onTimerComplete?: () => void;
   className?: string;
 }) {
-  const { secondsLeft } = useTimer({
+  const { secondsLeft, restart } = useTimer({
     totalSeconds,
     onComplete: () => {
-      setIsTimerComplete(true);
+      onTimerComplete?.();
+      if (enableRestartAfterComplete) restart();
     },
   });
   const { formattedHours, formattedMinutes, formattedSeconds } =
     useFormattedTime(secondsLeft);
 
   const tailwindStyles = `py-2 max-w-fit px-5 rounded-lg transition-colors duration-800 ${
-    Number(formattedSeconds) < 10 ? "bg-red-900" : "bg-green-800"
+    secondsLeft < 10 ? "bg-red-900" : "bg-green-800"
   }`;
 
   return (
-    <p className={className ? className + tailwindStyles : tailwindStyles}>
+    <p className={`${className} ${tailwindStyles}`.trim()}>
       {formattedHours}
       <span className="mx-1 font-extrabold">:</span>
       {formattedMinutes}
