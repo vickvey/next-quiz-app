@@ -1,4 +1,3 @@
-import { BASE_PATH } from "@/config";
 import { Question } from "@/interfaces";
 import { useEffect, useState } from "react";
 
@@ -11,7 +10,7 @@ export const useQuizData = () => {
   useEffect(() => {
     const loadQuestions = async () => {
       try {
-        const response = await fetch(`${BASE_PATH}/data/questions.json`);
+        const response = await fetch(`/data/questions.json`);
 
         if (!response.ok) throw new Error("Failed to fetch questions");
 
